@@ -54,93 +54,7 @@
 
         schemaCallback([table]);
     }
-    /*
-    myConnector.getSchema = function (schemaCallback) {
-        var cols = [
-            { id : "creatorId", alias : "CreatorId", dataType : tableau.dataTypeEnum.float },
-            { id : "id", alias : "id", dataType : tableau.dataTypeEnum.float },
-            { id : "date", alias : "Create Date", dataType : tableau.dataTypeEnum.date },
-            { id : "name" , alias : 'Name' , dataType : tableau.dataTypeEnum.string }
-        ];
 
-        var table1 = {
-            id : "tradingPartnerProfile",
-            alias : "TradingPartnerProfile",
-            columns : cols
-        };
-
-        var cols2 = [
-            { id : "text", alias : "Text", dataType : tableau.dataTypeEnum.string },
-            { id : "selected", alias : "Response", dataType : tableau.dataTypeEnum.boolean },
-        ];
-
-        var table2 = {
-            id : "questionInstances",
-            alias : "Question Responses ",
-            columns : cols2
-        };
-
-
-
-        schemaCallback([table1, table2]);
-    };
-    */
-
-
-    /*
-    myConnector.getData = function (table, doneCallback) {
-        var url = gtn.env ;
-        var questionnaireDesignId = tableau.connectionData;
-        if(table.tableInfo.id == 'tradingPartnerProfile'){
-            url += '/rest/310/$TradingPartnerProfileB1/query?oql=status="Active"'
-        } else{
-            url += "/rest/310/$QuestionnaireInstanceS1/query?oql=questionnairDesignId=" + questionnaireDesignId;
-        }
-        $.getJSON('http://localhost:8050/gtn-suppq-rest/310' , {
-            auth : Cookies.get('gtn-auth'),
-            url : url ,
-            datakey : gtn.datakey
-        } , function(res){
-            var results = res.result ,
-                tableData = [];
-
-            if( table.tableInfo.id == 'tradingPartnerProfile'){
-                for( var i = 0 , len = results.length ; i < len ; i++ ){
-                    var node = results[i];
-                    tableData.push({
-                        "creatorId" : node.__metadata.creatorId ,
-                        "id" : node.uid,
-                        "date" : node.dateCreated,
-                        "name" : node.name
-                    })
-                }
-            } else{
-                for( var i = 0 , len = results.length ; i < len ; i++ ){
-                    var node = results[i];
-                    tableData.push({
-                        "status" : node.status ,
-                        "tpp" : node.tradingPartnerProfile && node.tradingPartnerProfile.rootId,
-                        "date" : node.createdDate
-                    })
-                }
-            }
-
-
-            table.appendRows(tableData);
-            doneCallback();
-        }).then( null , function(err){
-            tableau.log(err);
-            if( err.status == 401 ){
-                Cookies.remove('gtn-auth');
-                alert('Incorrect Credentials');
-                doneCallback();
-            } else{
-                alert('Did not work');
-                doneCallback();
-            }
-        });
-    };
-*/
     myConnector.getData = function (table, doneCallback) {
         var url = gtn.env ;
         var questionDesignId = JSON.parse( tableau.connectionData ).questionId;
@@ -161,15 +75,13 @@
                             rowData = {},
                             colKey = null;
                         for(j; j < resLen; j++){
-                            //colKey = 'opt' + j;
-                            //rowData[colKey] = responses[j].selected ? responses[j].selected : 'false'
                             tableData.push({
-                                selected : responses[j].selected == 'true' ,//? responses[j].selected : 'false',
+                                selected : responses[j].selected == 'true' ,
                                 text : responses[j].answerText,
                                 createDate : question.createdDate
                             });
                         }
-                        //tableData.push( rowData );
+
                     }
                 }
                 table.appendRows(tableData);
@@ -233,7 +145,6 @@
                 $(this).button('reset');
             });
         });
-        //toggleAuthenticationMode( Cookies.get('gtn-auth') );
     });
 
     function getConnectionData( question ){
