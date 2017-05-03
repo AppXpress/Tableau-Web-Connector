@@ -1,8 +1,10 @@
-# Tableau Web Data Connector SDK
-[![Coverage Status](https://coveralls.io/repos/github/tableau/webdataconnector/badge.svg?branch=master)](https://coveralls.io/github/tableau/webdataconnector?branch=master) [![Build Status](https://travis-ci.org/tableau/webdataconnector.svg?branch=master)](https://travis-ci.org/tableau/webdataconnector)
+# AppXpress Tableau Web Connector
 
-Use the Tableau Web Data Connector (WDC) to connect to web data sources from Tableau. This is the repository for the Tableau WDC SDK, which includes developer samples and a simulator to help you create your connectors.
+This repository is essentially Tableau's open sourced [web data connector simulator](https://github.com/tableau/webdataconnector) with a GT Nexus Web Data Connector added into it. The GT Nexus Web Data Connector leverages AppXpress technology to fetch data relating to the Trading Partner Management application.
 
-[Visit the project website and documentation here](http://tableau.github.io/webdataconnector/).
+## Setup
 
-Want to contribute to the WDC? See our [contribution guidelines](http://tableau.github.io/).
+1. Clone this repository
+2. Run `npm install` within the cloned directory. This will download all of the packages dependencies, as defined in the **package.json** file. You should see a node_modules folder appear in your folder
+3. Run `npm start`. This will do two things - start a simple node.js file server, ( using the http-server npm packge ) that will server the simulator static files to your browser and it will start a proxy server which is used to send requests against the GT Nexus platform over HTTPS
+4. Open up your browser and navigate to **localhost:8888/Simulator**. The connector url at the top of the page should default to the AppXpress Web connector - using the URL *../GTN_Connector/gtnexus_connect.html*. Also included in the repository are examples taken from Tableau Web Connector open source project.
