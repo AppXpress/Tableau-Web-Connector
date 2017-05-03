@@ -8,7 +8,8 @@
     "bundle": "npm run lint && webpack --watch --config ./webpack.config.js",
     "lint": "eslint ./Simulator --ext .js --ext .jsx --cache",
     "lint:fix": "eslint ./Simulator --ext .js --ext .jsx --fix --cache",
-    "start": "node node_modules/npm-run-all/bin/npm-run-all --parallel corsproxy http-server",
+    "gtn": "node GTN_Connector/proxy_server/app",
+    "start": "node node_modules/npm-run-all/bin/npm-run-all --parallel http-server gtn",
     "start:bundle": "node node_modules/npm-run-all/bin/npm-run-all --parallel corsproxy http-server bundle",
     "end-to-end": "node_modules/.bin/mocha --compilers js:babel-core/register --recursive ./Simulator/tests/end-to-end",
     "unit": "node_modules/.bin/mocha --compilers js:babel-core/register --recursive  Simulator/tests/unit",
@@ -38,7 +39,6 @@
     "eslint-plugin-import": "^1.9.2",
     "eslint-plugin-jsx-a11y": "^1.5.3",
     "eslint-plugin-react": "^5.2.2",
-    "express": "^4.14.0",
     "jsdom": "^9.3.0",
     "mocha": "^2.5.3",
     "nyc": "^6.6.1",
@@ -64,8 +64,10 @@
   },
   "dependencies": {
     "corsproxy": "^1.4.0",
+    "express": "^4.15.2",
     "http-server": "^0.9.0",
-    "npm-run-all": "^2.1.1"
+    "npm-run-all": "^2.1.1",
+    "request": "^2.81.0"
   },
   "nyc": {
     "include": [
